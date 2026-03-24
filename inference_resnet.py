@@ -47,7 +47,7 @@ if __name__ == '__main__':
     
     model_types = ['res_lip', 'res']
     splits = ['val', 'test']
-    model_type = 'res_lip'
+
     noise_types = ["PoissonNoise", "Jpeg", "GaussianNoise", "BrightnessShift"]
     noise_dict = {"AugmentHE": 'augHE', "PoissonNoise": "poisson",
                 "GaussianNoise": "gaussian", "BrightnessShift": "brightness",
