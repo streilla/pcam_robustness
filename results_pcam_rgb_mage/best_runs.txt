@@ -1,0 +1,78 @@
+julia> sort(collect(Files_Losses), by = last)[1:5]
+5-element Vector{Pair{Any, Any}}:
+ "results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__13" => -0.8024680523399705
+ "results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__21" => -0.7929102793515209
+ "results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__20" => -0.7926289489176629
+ "results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__15" => -0.783868448325995
+ "results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__14" => -0.783287671356373
+
+
+# RUN ALL
+files=(
+"results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__13"
+"results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__21"
+"results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__20"
+"results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__15"
+"results_pcam_rgb_mage/EXP_1/mage_imgcls/EXP_1__14"
+)
+for FILE in "${files[@]}"; do
+  ./noise/run_poisson_tests.sh \
+    "$FILE/checkpoint_0.pickle" \
+    NOISE_pcam_poisson \
+    EXP_1 \
+    identity \
+    true \
+    "val test"
+done
+for FILE in "${files[@]}"; do
+  ./noise/run_brightness_tests.sh \
+    "$FILE/checkpoint_0.pickle" \
+    NOISE_pcam_brightness \
+    EXP_1 \
+    identity \
+    true \
+    "val test"
+done
+for FILE in "${files[@]}"; do
+  ./noise/run_noise_tests.sh \
+    "$FILE/checkpoint_0.pickle" \
+    NOISE_pcam_gaussian \
+    EXP_1 \
+    identity \
+    true \
+    "val test"
+done
+
+# Gaussian
+julia> to_color_df
+5×2 DataFrame
+ Row │ model_id               auc_unique
+     │ String                 Float64
+─────┼───────────────────────────────────
+   1 │ mage_imgcls_EXP_1__13    0.123575
+   2 │ mage_imgcls_EXP_1__14    0.129203
+   3 │ mage_imgcls_EXP_1__15    0.13191
+   4 │ mage_imgcls_EXP_1__21    0.14257
+   5 │ mage_imgcls_EXP_1__20    0.153218
+
+# Poisson
+5×2 DataFrame
+ Row │ model_id               auc_unique
+     │ String                 Float64
+─────┼───────────────────────────────────
+   1 │ mage_imgcls_EXP_1__13     4.95669
+   2 │ mage_imgcls_EXP_1__15     4.97491
+   3 │ mage_imgcls_EXP_1__14     4.97516
+   4 │ mage_imgcls_EXP_1__21     5.00509
+   5 │ mage_imgcls_EXP_1__20     5.47534
+
+# Brightness
+5×2 DataFrame
+ Row │ model_id               auc_unique
+     │ String                 Float64
+─────┼───────────────────────────────────
+   1 │ mage_imgcls_EXP_1__21    0.401832
+   2 │ mage_imgcls_EXP_1__20    0.40422
+   3 │ mage_imgcls_EXP_1__13    0.450145
+   4 │ mage_imgcls_EXP_1__14    0.45292
+   5 │ mage_imgcls_EXP_1__15    0.45669
