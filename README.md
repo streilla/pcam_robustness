@@ -2,8 +2,7 @@
 Comparing classifier robustness to different types of noise on the PCAM dataset
 
 ### Installation
-Download the PCAM data from https://github.com/basveeling/pcam
-Request Virchow2 access from https://huggingface.co/paige-ai/Virchow2
+Download the PCAM data from https://github.com/basveeling/pcam and request Virchow2 access from https://huggingface.co/paige-ai/Virchow2
 
 Create and activate a conda environment with
 ```
@@ -32,7 +31,9 @@ conda install conda-forge::python-spams
 ```
 
 To apply noise to the validation and test images, run
-```bash apply_noise.sh <VAL_IMG_PATH> <TEST_IMG_PATH> <INCLUDE_AUGHE>```
+```
+bash apply_noise.sh <VAL_IMG_PATH> <TEST_IMG_PATH> <INCLUDE_AUGHE>
+```
 
 
 ### Run full pipeline
@@ -84,9 +85,13 @@ Pkg.add(url="https://github.com/camilodlt/MAGE_SKIMAGE_MEASURE.git")
 
 For MAGE inference, run the following command with a path to a python environment containing matplotlib and scikit-image:
 
-```export JULIA_PYTHONCALL_EXE="/path/to/python/env/w/matplotlib/and/skimage/python"```
+```
+export JULIA_PYTHONCALL_EXE="/path/to/python/env/w/matplotlib/and/skimage/python"
+```
 
 Then, run:
 
-```bash MAGE_inference.sh <VAL_LABELS_PATH> <TEST_LABELS_PATH> <OUTPUT_DIR> <TRIAL_ID>```
+```
+bash MAGE_inference.sh <VAL_LABELS_PATH> <TEST_LABELS_PATH> <OUTPUT_DIR> <TRIAL_ID>
+```
 
